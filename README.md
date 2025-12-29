@@ -6,7 +6,7 @@
 
 A machine learning-based intrusion detection pipeline designed to classify network traffic anomalies. This project leverages the **NSL-KDD** dataset to train a **Random Forest** classifier capable of distinguishing between normal traffic and malicious attack vectors (DoS, Probe, U2R, R2L) with **78.26% accuracy** on unseen test data.
 
-## 🚀 Project Overview
+## Project Overview
 
 Traditional firewall systems often rely on static rules signatures, making them vulnerable to zero-day attacks and novel intrusion patterns. This project explores a **statistical learning approach** to security, using supervised machine learning to identify malicious packet flows based on traffic characteristics rather than explicit signatures.
 
@@ -30,7 +30,7 @@ Analysis of Gini Importance identified the following as the strongest indicators
 2.  **dst_bytes:** Volume of data received at destination.
 3.  **flag:** Connection status (e.g., `SF`, `S0` - indicating incomplete handshakes).
 
-## 🛠️ Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
 * Python 3.8+
@@ -40,3 +40,18 @@ Analysis of Gini Importance identified the following as the strongest indicators
 ```bash
 git clone [https://github.com/YOUR_USERNAME/nids-project.git](https://github.com/YOUR_USERNAME/nids-project.git)
 cd nids-project
+
+### 2. Install Dependencies
+```bash
+pip install pandas numpy scikit-learn matplotlib seaborn
+```
+
+### 3. Download the Dataset
+```bash
+Download KDDTrain+.txt and KDDTest+.txt from the NSL-KDD Dataset and place them in the root directory.
+```
+
+## Usage
+```bash
+python nids.py
+```
