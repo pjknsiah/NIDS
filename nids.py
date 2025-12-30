@@ -68,7 +68,7 @@ print("\nRunning Evaluation on Test Set...")
 y_pred = rf.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 
-print(f"\n✅ Model Accuracy: {accuracy * 100:.2f}%")
+print(f"\nModel Accuracy: {accuracy * 100:.2f}%")
 print("\n--- detailed Classification Report ---")
 print(classification_report(y_test, y_pred))
 
@@ -78,8 +78,6 @@ importances = rf.feature_importances_
 feature_names = X_train.columns
 indices = np.argsort(importances)[::-1]
 
-print("\n🔍 TOP 5 INDICATORS OF ATTACK (Use these in your resume):")
+print("\n🔍 TOP 5 INDICATORS OF ATTACK:")
 for i in range(5):
     print(f"{i+1}. {feature_names[indices[i]]} ({importances[indices[i]]:.4f})")
-
-print("\nDone! Take a screenshot of these results.")
