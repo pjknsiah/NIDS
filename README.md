@@ -1,13 +1,8 @@
 # AI-Driven Network Intrusion Detection System (NIDS)
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=flat-square&logo=python)
-![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Random%20Forest-orange?style=flat-square&logo=scikit-learn)
-![Status](https://img.shields.io/badge/Status-Prototype-green?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square)
-
 An advanced machine learning-based intrusion detection pipeline designed to classify network traffic anomalies. This project leverages the **NSL-KDD** dataset to train a **Random Forest** classifier capable of distinguishing between normal traffic and malicious attack vectors (DoS, Probe, U2R, R2L) with **78.26% accuracy** on unseen test data.
 
-## 📋 Table of Contents
+## Table of Contents
 - [Project Overview](#-project-overview)
 - [Key Features](#-key-features)
 - [Results & Performance](#-results--performance)
@@ -16,7 +11,7 @@ An advanced machine learning-based intrusion detection pipeline designed to clas
 - [Project Structure](#-project-structure)
 - [Future Roadmap](#-future-roadmap)
 
-## 🔭 Project Overview
+## Project Overview
 
 Traditional firewall systems often rely on static signature matching, making them vulnerable to zero-day attacks and novel intrusion patterns. This project implements a **statistical learning approach** to security, using supervised machine learning to identify malicious packet flows based on traffic characteristics rather than explicit signatures.
 
@@ -26,13 +21,13 @@ Traditional firewall systems often rely on static signature matching, making the
 * **Classification:** Train a Random Forest model to predict traffic labels (`normal` vs. `anomaly`).
 * **Analysis:** Evaluate model performance on a distinct test set to simulate real-world generalization.
 
-## ⚡ Key Features
+## Key Features
 
 - **Robust Preprocessing**: Automatic handling of categorical features (`protocol_type`, `service`, `flag`) using label encoding.
 - **Model Explainability**: Feature importance analysis identifies the specific network characteristics (e.g., `src_bytes`, `flag`) that trigger security alerts.
 - **Zero-Day Simulation**: Tested on a specific test set (`KDDTest+`) that contains attack types **not present** in the training data, validating the model's ability to generalize.
 
-## 📊 Results & Performance
+## Results & Performance
 
 | Metric | Value | Description |
 | :--- | :--- | :--- |
@@ -50,7 +45,7 @@ Analysis of Gini Importance identifies these features as the strongest indicator
 2.  **`dst_bytes`**: Volume of data received at destination.
 3.  **`flag`**: Connection status (e.g., `SF`, `S0` - indicating incomplete handshakes).
 
-## 💻 Installation
+## Installation
 
 ### Prerequisites
 * Python 3.8+
@@ -86,7 +81,7 @@ Analysis of Gini Importance identifies these features as the strongest indicator
    - Download **[KDDTest+.txt](https://raw.githubusercontent.com/defcom17/NSL_KDD/master/KDDTest%2B.txt)**
    - Place both files in the root directory of the project.
 
-## 🚀 Usage
+## Usage
 
 Run the main script to train the model and see evaluation results:
 
@@ -108,7 +103,7 @@ Model Accuracy: 78.26%
 ...
 ```
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 nids-project/
@@ -119,7 +114,7 @@ nids-project/
 └── requirements.txt    # Python dependencies
 ```
 
-## 🔮 Future Roadmap
+## Future Roadmap
 - [ ] Implement Deep Learning models (LSTM/CNN) for sequential pattern recognition.
 - [ ] Add real-time packet capture using `scapy` for live intrusion detection.
 - [ ] Develop a web dashboard for visualizing traffic alerts.
