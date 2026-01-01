@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIDS | Traffic Sentinel</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar glass">
+            <div class="logo">
+                <i class="fa-solid fa-shield-virus"></i> NIDS
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fa-solid fa-history"></i> Logs</a></li>
+                <li><a href="#"><i class="fa-solid fa-sliders"></i> Settings</a></li>
+            </ul>
+            <div class="status-indicator">
+                <span class="status-dot"></span> System Online
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar glass">
+                <h1>Network Traffic Monitor</h1>
+                <div class="user-profile">
+                    <span>Admin</span>
+                    <i class="fa-solid fa-user-circle"></i>
+                </div>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card glass" id="card-total">
+                    <div class="icon-box"><i class="fa-solid fa-network-wired"></i></div>
+                    <div class="stat-info">
+                        <h3>Total Packets</h3>
+                        <p id="total-packets">0</p>
+                    </div>
+                </div>
+                <div class="stat-card glass" id="card-threats">
+                    <div class="icon-box alert"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div class="stat-info">
+                        <h3>Threats Detected</h3>
+                        <p id="threats-detected">0</p>
+                    </div>
+                </div>
+                <div class="stat-card glass" id="card-level">
+                    <div class="icon-box warning"><i class="fa-solid fa-gauge-high"></i></div>
+                    <div class="stat-info">
+                        <h3>Threat Level</h3>
+                        <p id="threat-level">Normal</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-section">
+                <div class="chart-container glass">
+                    <h2>Live Traffic Volume</h2>
+                    <canvas id="trafficChart"></canvas>
+                </div>
+                <div class="chart-container glass">
+                    <h2>Attack Probability</h2>
+                    <canvas id="attackChart"></canvas>
+                </div>
+            </div>
+
+            <div class="alerts-section glass">
+                <h2><i class="fa-solid fa-bell"></i> Recent Alerts</h2>
+                <div class="table-responsive">
+                    <table class="alerts-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Timestamp</th>
+                                <th>Type</th>
+                                <th>Severity</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="alerts-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>
