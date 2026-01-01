@@ -55,8 +55,8 @@ Analysis of Gini Importance identifies these features as the strongest indicator
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/nids-project.git
-   cd nids-project
+   git clone https://github.com/pjknsiah/NIDS.git
+   cd NIDS
    ```
 
 2. **Create a Virtual Environment (Optional but Recommended)**
