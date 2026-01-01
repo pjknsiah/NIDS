@@ -1,6 +1,6 @@
 # AI-Driven Network Intrusion Detection System (NIDS)
 
-An advanced machine learning-based intrusion detection pipeline designed to classify network traffic anomalies. This project leverages the **NSL-KDD** dataset to train a **Random Forest** classifier capable of distinguishing between normal traffic and malicious attack vectors (DoS, Probe, U2R, R2L) with **78.26% accuracy** on unseen test data.
+An advanced machine learning-based intrusion detection pipeline and web dashboard designed to simulate and classify network traffic anomalies. This project leverages the **NSL-KDD** dataset to train a **Random Forest** classifier capable of distinguishing between normal traffic and malicious attack vectors (DoS, Probe, U2R, R2L) with **78.26% accuracy**. It features a real-time **Flask-based Dashboard** for visualizing threat levels and alerts.
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -23,6 +23,8 @@ Traditional firewall systems often rely on static signature matching, making the
 
 ## Key Features
 
+- **Real-time Dashboard**: A web interface tailored for security analysts to monitor traffic stats, threat levels, and live alerts.
+- **Traffic Simulation**: Integrated engine that simulates network traffic patterns using real test data to demonstrate detection capabilities.
 - **Robust Preprocessing**: Automatic handling of categorical features (`protocol_type`, `service`, `flag`) using label encoding.
 - **Model Explainability**: Feature importance analysis identifies the specific network characteristics (e.g., `src_bytes`, `flag`) that trigger security alerts.
 - **Zero-Day Simulation**: Tested on a specific test set (`KDDTest+`) that contains attack types **not present** in the training data, validating the model's ability to generalize.
@@ -83,33 +85,32 @@ Analysis of Gini Importance identifies these features as the strongest indicator
 
 ## Usage
 
-Run the main script to train the model and see evaluation results:
+You can run the project in two modes: **CLI Training** or **Web Dashboard**.
 
+### 1. Launch the Web Dashboard (Recommended)
+Start the Flask application to view the simulation and alerts in your browser.
+```bash
+python app.py
+```
+*   Access the dashboard at: `http://localhost:5000`
+*   The dashboard will automatically load the model and start simulating traffic.
+
+### 2. Run CLI Training & Evaluation
+To retrain the model and see raw performance metrics in the terminal:
 ```bash
 python nids.py
-```
-
-**Expected Output:**
-```text
-Loading data...
-Training set size: (125973, 43)
-Test set size: (22544, 43)
-
-Preprocessing data...
-Training Random Forest Model...
-Training Complete!
-
-Model Accuracy: 78.26%
-...
 ```
 
 ## Project Structure
 
 ```text
 nids-project/
-├── KDDTrain+.txt       # (External) Training dataset
-├── KDDTest+.txt        # (External) Testing dataset with novel attacks
-├── nids.py            # Main script (Load -> Preprocess -> Train -> Evaluate)
+├── app.py              # Flask Web Application & Simulation Engine
+├── templates/          # HTML Templates for the Dashboard
+├── static/             # CSS/JS Assets
+├── nids.py             # ML Core (Load -> Preprocess -> Train -> Evaluate)
+├── KDDTrain+.txt       # Training dataset
+├── KDDTest+.txt        # Testing dataset
 ├── README.md           # Documentation
 └── requirements.txt    # Python dependencies
 ```
@@ -117,7 +118,6 @@ nids-project/
 ## Future Roadmap
 - [ ] Implement Deep Learning models (LSTM/CNN) for sequential pattern recognition.
 - [ ] Add real-time packet capture using `scapy` for live intrusion detection.
-- [ ] Develop a web dashboard for visualizing traffic alerts.
 
 ---
 *Built for the purpose of Network Security Research.*
