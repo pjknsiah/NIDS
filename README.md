@@ -3,13 +3,13 @@
 An advanced machine learning-based intrusion detection pipeline designed to classify network traffic anomalies. This project leverages the **NSL-KDD** dataset to train a **Random Forest** classifier capable of distinguishing between normal traffic and malicious attack vectors (DoS, Probe, U2R, R2L) with **78.26% accuracy** on unseen test data.
 
 ## Table of Contents
-- [Project Overview](#-project-overview)
-- [Key Features](#-key-features)
-- [Results & Performance](#-results--performance)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [Project Structure](#-project-structure)
-- [Future Roadmap](#-future-roadmap)
+- [Project Overview](#project-overview)
+- [Key Features](#key-features)
+- [Results & Performance](#results--performance)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Future Roadmap](#future-roadmap)
 
 ## Project Overview
 
