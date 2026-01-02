@@ -19,10 +19,10 @@ body {
     font-family: 'Outfit', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
-    background-image: 
-        radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-        radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
-        radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+    background-image:
+        radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+        radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
     min-height: 100vh;
 }
 
@@ -78,7 +78,8 @@ body {
     transition: background 0.3s;
 }
 
-.nav-links li.active a, .nav-links a:hover {
+.nav-links li.active a,
+.nav-links a:hover {
     background: rgba(56, 189, 248, 0.2);
     color: var(--accent-color);
 }
@@ -203,7 +204,8 @@ body {
     border-collapse: collapse;
 }
 
-.alerts-table th, .alerts-table td {
+.alerts-table th,
+.alerts-table td {
     text-align: left;
     padding: 1rem;
     border-bottom: 1px solid var(--glass-border);
@@ -221,19 +223,129 @@ body {
     font-weight: 600;
 }
 
-.badge-high { background: rgba(239, 68, 68, 0.2); color: var(--alert-color); }
-.badge-medium { background: rgba(245, 158, 11, 0.2); color: var(--warning-color); }
-.badge-low { background: rgba(16, 185, 129, 0.2); color: var(--success-color); }
+.badge-high {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--alert-color);
+}
+
+.badge-medium {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--warning-color);
+}
+
+.badge-low {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success-color);
+}
 
 @media (max-width: 768px) {
     .dashboard-container {
         flex-direction: column;
     }
+
     .sidebar {
         width: auto;
         margin-bottom: 0;
     }
+
     .charts-section {
         grid-template-columns: 1fr;
     }
+}
+
+/* Controls & Buttons */
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-right: auto;
+    /* Push to left or keep close to title? index.html structure: h1, controls, user-profile. Flex space-between on top-bar. */
+    margin-left: 2rem;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--accent-color);
+    color: #0f172a;
+}
+
+.btn-primary:hover {
+    background: #0ea5e9;
+}
+
+.btn-danger {
+    background: var(--alert-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+}
+
+.btn-sm {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #1e293b;
+    margin: 10% auto;
+    padding: 2rem;
+    border: 1px solid var(--glass-border);
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    color: var(--text-color);
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-label {
+    color: #94a3b8;
+    font-weight: 600;
 }

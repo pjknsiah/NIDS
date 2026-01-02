@@ -23,6 +23,7 @@ app = Flask(__name__)
 recent_alerts = []
 TOTAL_PACKETS_SIMULATED = 0
 THREAT_COUNT = 0
+SIMULATION_RUNNING = True
 
 def simulate_traffic():
     """
@@ -80,20 +81,34 @@ def index():
 def get_stats():
     # Simulate some traffic on every poll to make it alive
     # Simulate a burst of packets
-    for _ in range(random.randint(1, 5)):
-        simulate_traffic()
+    if SIMULATION_RUNNING:
+        for _ in range(random.randint(1, 5)):
+            simulate_traffic()
         
     stats = {
         "total_packets": TOTAL_PACKETS_SIMULATED,
         "threats_detected": THREAT_COUNT,
-        "threat_level": "Critical" if THREAT_COUNT > 100 else ("Elevated" if THREAT_COUNT > 20 else "Normal"), # Typo 'Nomal' -> 'Normal' intended? I'll fix it.
-        "threat_level_normalized": "Normal" if THREAT_COUNT / (TOTAL_PACKETS_SIMULATED or 1) < 0.1 else "High"
+        "threat_level": "Critical" if THREAT_COUNT > 100 else ("Elevated" if THREAT_COUNT > 20 else "Normal"),
+        "threat_level_normalized": "Normal" if THREAT_COUNT / (TOTAL_PACKETS_SIMULATED or 1) < 0.1 else "High",
+        "simulation_running": SIMULATION_RUNNING
     }
     return jsonify(stats)
 
 @app.route('/api/alerts')
 def get_alerts():
     return jsonify(recent_alerts)
+
+@app.route('/api/control/start', methods=['POST'])
+def start_simulation():
+    global SIMULATION_RUNNING
+    SIMULATION_RUNNING = True
+    return jsonify({"status": "started", "running": True})
+
+@app.route('/api/control/stop', methods=['POST'])
+def stop_simulation():
+    global SIMULATION_RUNNING
+    SIMULATION_RUNNING = False
+    return jsonify({"status": "stopped", "running": False})
 
 if __name__ == '__main__':
     # Initialize some history

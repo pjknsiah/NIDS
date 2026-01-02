@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
     <div class="dashboard-container">
         <!-- Sidebar -->
@@ -36,6 +38,10 @@
         <main class="main-content">
             <header class="top-bar glass">
                 <h1>Network Traffic Monitor</h1>
+                <div class="controls">
+                    <button id="btn-start" class="btn btn-primary"><i class="fa-solid fa-play"></i> Start</button>
+                    <button id="btn-stop" class="btn btn-danger"><i class="fa-solid fa-stop"></i> Stop</button>
+                </div>
                 <div class="user-profile">
                     <span>Admin</span>
                     <i class="fa-solid fa-user-circle"></i>
@@ -88,6 +94,7 @@
                                 <th>Type</th>
                                 <th>Severity</th>
                                 <th>Score</th>
+                                <th>Details</th>
                             </tr>
                         </thead>
                         <tbody id="alerts-body">
@@ -99,7 +106,19 @@
         </main>
     </div>
 
+    <!-- Alert Modal -->
+    <div id="alert-modal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-modal">&times;</span>
+            <h2>Alert Details</h2>
+            <div id="modal-body">
+                <!-- Content -->
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
 </body>
+
 </html>

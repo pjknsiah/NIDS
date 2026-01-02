@@ -78,6 +78,6 @@ importances = rf.feature_importances_
 feature_names = X_train.columns
 indices = np.argsort(importances)[::-1]
 
-print("\n🔍 TOP 5 INDICATORS OF ATTACK:")
+print("\nTOP 5 INDICATORS OF ATTACK:")
 for i in range(5):
     print(f"{i+1}. {feature_names[indices[i]]} ({importances[indices[i]]:.4f})")

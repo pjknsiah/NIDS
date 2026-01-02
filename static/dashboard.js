@@ -60,6 +60,21 @@ async function updateStats() {
         // Update Text Stats
         document.getElementById('total-packets').textContent = data.total_packets;
         document.getElementById('threats-detected').textContent = data.threats_detected;
+
+        // Update Sim Status
+        const btnStart = document.getElementById('btn-start');
+        const btnStop = document.getElementById('btn-stop');
+        if (data.simulation_running) {
+            btnStart.disabled = true;
+            btnStop.disabled = false;
+            btnStart.style.opacity = "0.5";
+            btnStop.style.opacity = "1";
+        } else {
+            btnStart.disabled = false;
+            btnStop.disabled = true;
+            btnStart.style.opacity = "1";
+            btnStop.style.opacity = "0.5";
+        }
         document.getElementById('threat-level').textContent = data.threat_level;
 
         const levelColor = data.threat_level === 'Critical' ? '#ef4444' : (data.threat_level === 'Elevated' ? '#f59e0b' : '#10b981');
@@ -113,6 +128,7 @@ async function updateAlerts() {
                 <td>${alert.type}</td>
                 <td><span class="badge ${badgeClass}">${alert.severity}</span></td>
                 <td>${alert.score}</td>
+                <td><button class="btn btn-sm btn-primary" onclick='openModal(${JSON.stringify(alert)})'>View</button></td>
             `;
             tbody.appendChild(row);
         });
@@ -131,4 +147,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateStats();
     updateAlerts();
+
+    // Wire up controls
+    document.getElementById('btn-start').addEventListener('click', async () => {
+        await fetch('/api/control/start', { method: 'POST' });
+        updateStats(); // Refresh immediately
+    });
+
+    document.getElementById('btn-stop').addEventListener('click', async () => {
+        await fetch('/api/control/stop', { method: 'POST' });
+        updateStats(); // Refresh immediately
+    });
+
+    // Close Modal
+    document.querySelector('.close-modal').addEventListener('click', () => {
+        document.getElementById('alert-modal').style.display = 'none';
+    });
+
+    window.onclick = function (event) {
+        const modal = document.getElementById('alert-modal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 });
+
+function openModal(alert) {
+    const modal = document.getElementById('alert-modal');
+    const modalBody = document.getElementById('modal-body');
+
+    let badgeClass = 'badge-low';
+    if (alert.severity === 'High') badgeClass = 'badge-high';
+    else if (alert.severity === 'Medium') badgeClass = 'badge-medium';
+
+    modalBody.innerHTML = `
+        <div class="modal-row"><span class="modal-label">Alert ID:</span> <span>#${alert.id}</span></div>
+        <div class="modal-row"><span class="modal-label">Timestamp:</span> <span>${alert.timestamp}</span></div>
+        <div class="modal-row"><span class="modal-label">Type:</span> <span>${alert.type}</span></div>
+        <div class="modal-row"><span class="modal-label">Severity:</span> <span class="badge ${badgeClass}">${alert.severity}</span></div>
+        <div class="modal-row"><span class="modal-label">Score:</span> <span>${alert.score}</span></div>
+        <div class="modal-row"><span class="modal-label">Details:</span> <span>Predicted based on Random Forest model analysis of packet headers.</span></div>
+    `;
+
+    modal.style.display = 'block';
+}
