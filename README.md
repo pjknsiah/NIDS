@@ -28,6 +28,9 @@ Traditional firewall systems often rely on static signature matching, making the
   ![Dashboard Screenshot](screenshots/dashboard_preview.png)
 
 - **Traffic Simulation**: Integrated engine that simulates network traffic patterns using real test data to demonstrate detection capabilities.
+
+  ![Alerts Preview](screenshots/alerts_preview.png)
+
 - **Robust Preprocessing**: Automatic handling of categorical features (`protocol_type`, `service`, `flag`) using label encoding.
 - **Model Explainability**: Feature importance analysis identifies the specific network characteristics (e.g., `src_bytes`, `flag`) that trigger security alerts.
 - **Zero-Day Simulation**: Tested on a specific test set (`KDDTest+`) that contains attack types **not present** in the training data, validating the model's ability to generalize.
