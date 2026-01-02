@@ -24,6 +24,9 @@ Traditional firewall systems often rely on static signature matching, making the
 ## Key Features
 
 - **Real-time Dashboard**: A web interface tailored for security analysts to monitor traffic stats, threat levels, and live alerts.
+  
+  ![Dashboard Screenshot](screenshots/dashboard_preview.png)
+
 - **Traffic Simulation**: Integrated engine that simulates network traffic patterns using real test data to demonstrate detection capabilities.
 - **Robust Preprocessing**: Automatic handling of categorical features (`protocol_type`, `service`, `flag`) using label encoding.
 - **Model Explainability**: Feature importance analysis identifies the specific network characteristics (e.g., `src_bytes`, `flag`) that trigger security alerts.
