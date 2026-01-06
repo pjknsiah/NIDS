@@ -6,7 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score
 
-# --- STEP 1: LOAD DATA ---
+# LOAD DATA
 print("Loading data...")
 # NSL-KDD column names (the file doesn't have headers)
 columns = ["duration","protocol_type","service","flag","src_bytes","dst_bytes",
@@ -29,7 +29,7 @@ df_test = pd.read_csv('KDDTest+.txt', names=columns)
 print(f"Training set size: {df_train.shape}")
 print(f"Test set size: {df_test.shape}")
 
-# --- STEP 2: PREPROCESSING ---
+# PREPROCESSING
 print("\nPreprocessing data...")
 
 # Function to handle categorical data (protocol, service, flag)
@@ -56,14 +56,14 @@ y_train = train_data['target']
 X_test = test_data.drop('target', axis=1)
 y_test = test_data['target']
 
-# --- STEP 3: TRAINING THE MODEL ---
+# TRAINING THE MODEL
 print("\nTraining Random Forest Model (this might take a minute)...")
 # n_estimators=50 is enough for a demo; increase to 100 for better results
 rf = RandomForestClassifier(n_estimators=50, random_state=42)
 rf.fit(X_train, y_train)
 print("Training Complete!")
 
-# --- STEP 4: EVALUATION ---
+# EVALUATION
 print("\nRunning Evaluation on Test Set...")
 y_pred = rf.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
@@ -72,8 +72,7 @@ print(f"\nModel Accuracy: {accuracy * 100:.2f}%")
 print("\n--- detailed Classification Report ---")
 print(classification_report(y_test, y_pred))
 
-# --- STEP 5: RESEARCH INSIGHTS (Feature Importance) ---
-# This is the "Why" that researchers care about
+# RESEARCH INSIGHTS (Feature Importance)
 importances = rf.feature_importances_
 feature_names = X_train.columns
 indices = np.argsort(importances)[::-1]
