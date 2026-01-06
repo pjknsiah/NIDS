@@ -1,4 +1,3 @@
-// Charts
 let trafficChart;
 let attackChart;
 
@@ -57,11 +56,9 @@ async function updateStats() {
         const response = await fetch('/api/stats');
         const data = await response.json();
 
-        // Update Text Stats
         document.getElementById('total-packets').textContent = data.total_packets;
         document.getElementById('threats-detected').textContent = data.threats_detected;
 
-        // Update Sim Status
         const btnStart = document.getElementById('btn-start');
         const btnStop = document.getElementById('btn-stop');
         if (data.simulation_running) {
@@ -80,10 +77,9 @@ async function updateStats() {
         const levelColor = data.threat_level === 'Critical' ? '#ef4444' : (data.threat_level === 'Elevated' ? '#f59e0b' : '#10b981');
         document.getElementById('threat-level').style.color = levelColor;
 
-        // Update Traffic Chart (mock real-time feel)
         const now = new Date().toLocaleTimeString();
         if (trafficChart.data.labels.length > 20) {
-            trafficChart.data.labels.shift();
+            trafficChart.data.labels.shift(); 
             trafficChart.data.datasets[0].data.shift();
         }
         trafficChart.data.labels.push(now);
@@ -117,7 +113,6 @@ async function updateAlerts() {
         alerts.slice(0, 10).forEach(alert => {
             const row = document.createElement('tr');
 
-            // Badge color
             let badgeClass = 'badge-low';
             if (alert.severity === 'High') badgeClass = 'badge-high';
             else if (alert.severity === 'Medium') badgeClass = 'badge-medium';
@@ -143,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Poll APIs
     setInterval(updateStats, 2000);
-    setInterval(updateAlerts, 2000); // 2 seconds
+    setInterval(updateAlerts, 2000);
 
     updateStats();
     updateAlerts();
@@ -151,15 +146,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Wire up controls
     document.getElementById('btn-start').addEventListener('click', async () => {
         await fetch('/api/control/start', { method: 'POST' });
-        updateStats(); // Refresh immediately
+        updateStats();
     });
 
     document.getElementById('btn-stop').addEventListener('click', async () => {
         await fetch('/api/control/stop', { method: 'POST' });
-        updateStats(); // Refresh immediately
+        updateStats();
     });
 
-    // Close Modal
     document.querySelector('.close-modal').addEventListener('click', () => {
         document.getElementById('alert-modal').style.display = 'none';
     });

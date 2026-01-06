@@ -5,21 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NIDS | Traffic Sentinel</title>
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
     <div class="dashboard-container">
-        <!-- Sidebar -->
         <nav class="sidebar glass">
             <div class="logo">
                 <i class="fa-solid fa-shield-virus"></i> NIDS
@@ -34,7 +29,6 @@
             </div>
         </nav>
 
-        <!-- Main Content -->
         <main class="main-content">
             <header class="top-bar glass">
                 <h1>Network Traffic Monitor</h1>
@@ -98,7 +92,6 @@
                             </tr>
                         </thead>
                         <tbody id="alerts-body">
-                            <!-- Populated by JS -->
                         </tbody>
                     </table>
                 </div>
@@ -106,18 +99,15 @@
         </main>
     </div>
 
-    <!-- Alert Modal -->
     <div id="alert-modal" class="modal">
         <div class="modal-content glass">
             <span class="close-modal">&times;</span>
             <h2>Alert Details</h2>
             <div id="modal-body">
-                <!-- Content -->
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
 </body>
 
