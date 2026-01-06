@@ -40,7 +40,6 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar */
 .sidebar {
     width: 250px;
     padding: 2rem;
@@ -100,7 +99,6 @@ body {
     box-shadow: 0 0 10px var(--success-color);
 }
 
-/* Main Content */
 .main-content {
     flex: 1;
     padding: 1rem;
@@ -120,7 +118,6 @@ body {
     font-weight: 600;
 }
 
-/* Stats Grid */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -168,7 +165,6 @@ body {
     font-weight: 700;
 }
 
-/* Charts */
 .charts-section {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -186,7 +182,6 @@ body {
     margin-bottom: 1rem;
 }
 
-/* Alerts Table */
 .alerts-section {
     padding: 1.5rem;
 }
@@ -253,12 +248,10 @@ body {
     }
 }
 
-/* Controls & Buttons */
 .controls {
     display: flex;
     gap: 10px;
     margin-right: auto;
-    /* Push to left or keep close to title? index.html structure: h1, controls, user-profile. Flex space-between on top-bar. */
     margin-left: 2rem;
 }
 
@@ -298,7 +291,6 @@ body {
     font-size: 0.8rem;
 }
 
-/* Modal */
 .modal {
     display: none;
     position: fixed;
