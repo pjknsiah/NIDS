@@ -6,20 +6,7 @@ import random
 
 app = Flask(__name__)
 
-# --- NIDS Integration ---
-# Using the trained model and test data from nids.py
-# nids.py runs training on import, so we have access to:
-# nids.rf (the model)
-# nids.X_test (test features)
-# nids.y_test (true labels)
-# nids.test_data (features + target + other cols from preprocessing if available, 
-#                 but nids.py overwrites test_data with preprocess() result which has dropped cols)
-
-# Let's inspect what we have in nids.X_test
-# It's a DataFrame with the processed features.
-
-# We'll simulate "live" traffic by sampling from the test set.
-# We'll keep a history of "recent" alerts.
+# Using the trained model and test data from nids.py which runs training on import
 recent_alerts = []
 TOTAL_PACKETS_SIMULATED = 0
 THREAT_COUNT = 0
@@ -33,10 +20,7 @@ def simulate_traffic():
     """
     global TOTAL_PACKETS_SIMULATED, THREAT_COUNT, recent_alerts
     
-    # Pick a random index
     idx = random.randint(0, len(nids.X_test) - 1)
-    
-    # Extract the row
     row = nids.X_test.iloc[[idx]]
     
     # Predict
@@ -49,18 +33,6 @@ def simulate_traffic():
     is_attack = (prediction == 1)
     if is_attack:
         THREAT_COUNT += 1
-        
-        # Construct alert object
-        # We don't have the original raw features easily mapped back because of LabelEncoding 
-        # in nids.py without the encoders being saved. 
-        # But we can show the processed values or just generic info.
-        # For a PRETTY dashboard, we might want to say "TCP / HTTP" etc.
-        # But we only have encoded values in X_test.
-        # To make it look better, we'll just mock the protocol/service names 
-        # based on randomness or generic labels for this demo, 
-        # OR we could try to look at the original df_test if we read it again.
-        
-        # Let's just use generic "Packet #{ID}" and the probability score.
         alert = {
             "id": TOTAL_PACKETS_SIMULATED,
             "severity": "High" if proba > 0.8 else "Medium",
@@ -69,7 +41,7 @@ def simulate_traffic():
             "timestamp": pd.Timestamp.now().strftime("%H:%M:%S")
         }
         recent_alerts.insert(0, alert)
-        recent_alerts = recent_alerts[:50] # Keep last 50
+        recent_alerts = recent_alerts[:50]
         
     return is_attack
 
@@ -79,8 +51,6 @@ def index():
 
 @app.route('/api/stats')
 def get_stats():
-    # Simulate some traffic on every poll to make it alive
-    # Simulate a burst of packets
     if SIMULATION_RUNNING:
         for _ in range(random.randint(1, 5)):
             simulate_traffic()
@@ -111,7 +81,6 @@ def stop_simulation():
     return jsonify({"status": "stopped", "running": False})
 
 if __name__ == '__main__':
-    # Initialize some history
     print("Initializing Simulation...")
     for _ in range(20):
         simulate_traffic()

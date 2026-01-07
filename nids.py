@@ -20,7 +20,6 @@ columns = ["duration","protocol_type","service","flag","src_bytes","dst_bytes",
            "dst_host_srv_serror_rate","dst_host_rerror_rate",
            "dst_host_srv_rerror_rate","label", "difficulty"]
 
-# Load Training and Test data
 df_train = pd.read_csv('KDDTrain+.txt', names=columns)
 df_test = pd.read_csv('KDDTest+.txt', names=columns)
 
@@ -32,10 +31,8 @@ print("\nPreprocessing data...")
 
 # Function to handle categorical data (protocol, service, flag)
 def preprocess(df):
-    # Create target: 0 for normal, 1 for attack
     df['target'] = df['label'].apply(lambda x: 0 if x == 'normal' else 1)
-    
-    # Drop columns we don't need
+
     df = df.drop(['label', 'difficulty'], axis=1)
     
     # Encode text columns to numbers
@@ -55,7 +52,6 @@ X_test = test_data.drop('target', axis=1)
 y_test = test_data['target']
 
 print("\nTraining Random Forest Model")
-# n_estimators=50 is enough for a demo
 rf = RandomForestClassifier(n_estimators=50, random_state=42)
 rf.fit(X_train, y_train)
 print("Training Complete!")
