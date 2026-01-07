@@ -45,7 +45,7 @@ def simulate_traffic():
         
     return is_attack
 
-@app.route('/')
+@app.route('/') 
 def index():
     return render_template('index.html')
 
