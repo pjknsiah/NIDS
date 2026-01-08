@@ -23,9 +23,7 @@ def simulate_traffic():
     idx = random.randint(0, len(nids.X_test) - 1)
     row = nids.X_test.iloc[[idx]]
     
-    # Predict
     prediction = nids.rf.predict(row)[0] # 0 or 1
-    # prediction proba for "confidence" or "severity" approximation
     proba = nids.rf.predict_proba(row)[0][1] # probability of class 1 (attack)
     
     TOTAL_PACKETS_SIMULATED += 1
