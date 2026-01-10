@@ -30,20 +30,40 @@ print(f"Test set size: {df_test.shape}")
 print("\nPreprocessing data...")
 
 # Function to handle categorical data (protocol, service, flag)
-def preprocess(df):
+# Function to handle categorical data (protocol, service, flag)
+def preprocess(df, encoders=None):
+    # Create a copy to avoid SettingWithCopy warnings or modifying original data
+    df = df.copy()
+    
     df['target'] = df['label'].apply(lambda x: 0 if x == 'normal' else 1)
-
     df = df.drop(['label', 'difficulty'], axis=1)
     
-    # Encode text columns to numbers
-    for col in ['protocol_type', 'service', 'flag']:
-        le = LabelEncoder()
-        # Fit on the column and transform
-        df[col] = le.fit_transform(df[col])
-    return df
+    cat_cols = ['protocol_type', 'service', 'flag']
+    
+    if encoders is None:
+        # TRAINING MODE: Fit encoders and return them
+        encoders = {}
+        for col in cat_cols:
+            le = LabelEncoder()
+            df[col] = le.fit_transform(df[col])
+            encoders[col] = le
+        return df, encoders
+    else:
+        # TESTING MODE: Use existing encoders
+        for col in cat_cols:
+            le = encoders[col]
+            # Handle unseen labels (crucial for real-world/test data)
+            # Map unseen labels to the first known class to prevent crashing
+            known_classes = set(le.classes_)
+            df[col] = df[col].apply(lambda x: x if x in known_classes else list(known_classes)[0])
+            df[col] = le.transform(df[col])
+        return df
 
-train_data = preprocess(df_train)
-test_data = preprocess(df_test)
+# Fit on Training Data
+train_data, encoders = preprocess(df_train)
+
+# Transform Test Data using Training Encoders
+test_data = preprocess(df_test, encoders=encoders)
 
 # Separate Features (X) and Target (y)
 X_train = train_data.drop('target', axis=1)
