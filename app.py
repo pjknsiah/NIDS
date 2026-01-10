@@ -6,7 +6,8 @@ import random
 
 app = Flask(__name__)
 
-# Using the trained model and test data from nids.py which runs training on import
+# Load pre-trained model and test data from artifacts
+rf, X_test = nids.load_artifacts()
 recent_alerts = []
 TOTAL_PACKETS_SIMULATED = 0
 THREAT_COUNT = 0
@@ -20,11 +21,11 @@ def simulate_traffic():
     """
     global TOTAL_PACKETS_SIMULATED, THREAT_COUNT, recent_alerts
     
-    idx = random.randint(0, len(nids.X_test) - 1)
-    row = nids.X_test.iloc[[idx]]
+    idx = random.randint(0, len(X_test) - 1)
+    row = X_test.iloc[[idx]]
     
-    prediction = nids.rf.predict(row)[0] # 0 or 1
-    proba = nids.rf.predict_proba(row)[0][1] # probability of class 1 (attack)
+    prediction = rf.predict(row)[0] # 0 or 1
+    proba = rf.predict_proba(row)[0][1] # probability of class 1 (attack)
     
     TOTAL_PACKETS_SIMULATED += 1
     
